@@ -34,7 +34,7 @@ def write_csv():
     Load raw csv file, pre-process it, and write training_data.csv for NeoPulse
     '''
     df = pd.read_csv('raw_data/DrivFace/drivPoints.txt')
-    file_list = [str(p.resolve()) for p in Path('DrivImages').iterdir()]
+    file_list = [str(p) for p in Path('DrivImages').iterdir()]
     shuffle(file_list)
     with open('training_data.csv', 'w') as of:
         of.write('Image,Vector\n')
@@ -46,6 +46,7 @@ def write_csv():
 
             of.write(f + ',' + '|'.join([str(p) for p in vec]) + '\n')
 
+
 def write_test_data():
     lines = []
     with open('training_data.csv', 'r') as rf:
@@ -53,9 +54,10 @@ def write_test_data():
     with open('training_data.csv', 'w') as wf:
         for lid in range(11):
             wf.write(lines[lid])
-    with open('query.csv','w') as wf:
+    with open('query.csv', 'w') as wf:
         for lid in range(3):
             wf.write(lines[lid].split(',')[0] + '\n')
+
 
 if __name__ == '__main__':
     download_data()

@@ -64,8 +64,8 @@ def write_csv_file():
             noise = ""
             for noise_ele in noise_num:
                 noise += str(noise_ele) + "|"
-            noise = noise[:-1] 
-            of.write(str(Path(img_file).resolve()) + ',' + noise + '\n')
+            noise = noise[:-1]
+            of.write(str(Path(img_file)) + ',' + noise + '\n')
 
         for index, image in enumerate(test_images):
             img_file = 'images/mnist_test_' + str(index) + '.png'
@@ -74,8 +74,9 @@ def write_csv_file():
             noise = ""
             for noise_ele in noise_num:
                 noise += str(noise_ele) + "|"
-            noise = noise[:-1] 
-            of.write(str(Path(img_file).resolve()) + ',' + noise + '\n')
+            noise = noise[:-1]
+            of.write(str(Path(img_file)) + ',' + noise + '\n')
+
 
 def write_test_data():
     lines = []
@@ -84,12 +85,13 @@ def write_test_data():
     with open('training_data.csv', 'w') as wf:
         for lid in range(11):
             wf.write(lines[lid])
-    with open('discriminator_query.csv','w') as wf:
+    with open('discriminator_query.csv', 'w') as wf:
         for lid in range(3):
             wf.write(lines[lid].split(',')[0] + '\n')
-    with open('generator_query.csv','w') as wf:
+    with open('generator_query.csv', 'w') as wf:
         for lid in range(3):
-            wf.write(lines[lid].split(',')[1] )
+            wf.write(lines[lid].split(',')[1])
+
 
 if __name__ == '__main__':
 
