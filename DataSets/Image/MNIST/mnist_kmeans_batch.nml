@@ -15,7 +15,7 @@ architecture:
     output: y;
 
     x -> UnsupervisedFlatten:[]
-    -> Kmeans:[n_clusters=10, batch=True]
+    -> Kmeans:[n_clusters=2, batch=True]
     -> y ;
 
 train:
