@@ -11,7 +11,7 @@ source:
             -> flat: [100]
             -> FlatDataGenerator: [] ;
     params:
-        number_validation = 10000,
+        number_validation = 2,
         batch_size = 5 ;
 
 architecture:
