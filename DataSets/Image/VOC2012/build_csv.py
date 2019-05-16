@@ -1,14 +1,14 @@
 import gzip
-import shutil
-from pathlib import Path
-import tarfile
+import json
 import os
+import shutil
+import tarfile
+from pathlib import Path
+from xml.etree import ElementTree
 
 import numpy as np
 import requests
 from imageio import imwrite
-from xml.etree import ElementTree
-import json
 
 
 def download_data():
@@ -34,6 +34,7 @@ def download_data():
         with open('pre_trained_model/' + f_vgg, 'wb') as f_k:
             shutil.copyfileobj(r_vgg.raw, f_k)
 
+
 def write_csv_file():
     '''
     Write absolute path to image files and bounding box labels to training_data.csv.
@@ -42,26 +43,26 @@ def write_csv_file():
     xml_path = Path("VOCdevkit/VOC2012/Annotations/")
     image_folder = Path("VOCdevkit/VOC2012/JPEGImages/")
 
-    label2id = {"aeroplane" : 0,
-                "bicycle" : 1,
-                "bird" : 2,
-                "boat" : 3,
-                "bottle" : 4,
-                "bus" : 5,
-                "car" : 6,
-                "cat" : 7,
-                "chair" : 8,
-                "cow" : 9,
-                "diningtable" :10,
-                "dog" : 11,
-                "horse" : 12,
-                "motorbike" : 13,
-                "person" : 14,
-                "pottedplant" : 15,
-                "sheep" : 16,
-                "sofa" : 17,
-                "train" : 18,
-                "tvmonitor" : 19}
+    label2id = {"aeroplane": 0,
+                "bicycle": 1,
+                "bird": 2,
+                "boat": 3,
+                "bottle": 4,
+                "bus": 5,
+                "car": 6,
+                "cat": 7,
+                "chair": 8,
+                "cow": 9,
+                "diningtable": 10,
+                "dog": 11,
+                "horse": 12,
+                "motorbike": 13,
+                "person": 14,
+                "pottedplant": 15,
+                "sheep": 16,
+                "sofa": 17,
+                "train": 18,
+                "tvmonitor": 19}
 
     with open('training_data.csv', 'w') as of:
         of.write('image,label\n')
@@ -76,17 +77,17 @@ def write_csv_file():
             height = float(size_tree.find('height').text)
             for object_tree in root.findall('object'):
                 for bounding_box in object_tree.iter('bndbox'):
-                    xmin = float(bounding_box.find('xmin').text)/width
-                    ymin = float(bounding_box.find('ymin').text)/height
-                    xmax = float(bounding_box.find('xmax').text)/width
-                    ymax = float(bounding_box.find('ymax').text)/height
+                    xmin = float(bounding_box.find('xmin').text) / width
+                    ymin = float(bounding_box.find('ymin').text) / height
+                    xmax = float(bounding_box.find('xmax').text) / width
+                    ymax = float(bounding_box.find('ymax').text) / height
 
                 class_name = object_tree.find('name').text
                 class_id = label2id[class_name]
                 bounding_box = [xmin, ymin, xmax, ymax, class_id]
                 bounding_boxes.append(bounding_box)
             image_name = root.find('filename').text
-            image_path = str((image_folder / image_name).resolve())
+            image_path = str((image_folder / image_name))
             jstring = json.dumps(bounding_boxes)
             of.write(image_path + ",\"" + jstring + "\"\n")
 
@@ -108,17 +109,17 @@ def write_csv_file():
             height = float(size_tree.find('height').text)
             for object_tree in root.findall('object'):
                 for bounding_box in object_tree.iter('bndbox'):
-                    xmin = float(bounding_box.find('xmin').text)/width
-                    ymin = float(bounding_box.find('ymin').text)/height
-                    xmax = float(bounding_box.find('xmax').text)/width
-                    ymax = float(bounding_box.find('ymax').text)/height
+                    xmin = float(bounding_box.find('xmin').text) / width
+                    ymin = float(bounding_box.find('ymin').text) / height
+                    xmax = float(bounding_box.find('xmax').text) / width
+                    ymax = float(bounding_box.find('ymax').text) / height
 
                 class_name = object_tree.find('name').text
                 class_id = label2id[class_name]
                 bounding_box = [xmin, ymin, xmax, ymax, class_id]
                 bounding_boxes.append(bounding_box)
             image_name = root.find('filename').text
-            image_path = str((image_folder / image_name).resolve())
+            image_path = str((image_folder / image_name))
             jstring = json.dumps(bounding_boxes)
             of.write(image_path + "\n")
 
@@ -126,8 +127,6 @@ def write_csv_file():
 
             if count == 2:
                 break
-
-
 
 
 if __name__ == '__main__':
