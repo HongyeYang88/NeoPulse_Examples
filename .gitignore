@@ -7,3 +7,8 @@
 *genres/
 *images/
 *videos/
+
+# For SageMaker
+*train.nml
+model/
+output/
