@@ -72,7 +72,7 @@ def write_csv_file():
             imwrite(img_file, image)
             of.write(str(Path(img_file)) + ',' + str(test_labels[index]) + '\n')
         '''
-    with open('querying_data.csv', 'w') as of:
+    with open('query.csv', 'w') as of:
         of.write('Image\n')
         count = 0
 

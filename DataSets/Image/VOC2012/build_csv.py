@@ -95,7 +95,7 @@ def write_csv_file():
             if count == 10:
                 break
 
-    with open('querying_data.csv', 'w') as of:
+    with open('query.csv', 'w') as of:
         of.write('image\n')
         filenames = os.listdir(str(xml_path))
         count = 0

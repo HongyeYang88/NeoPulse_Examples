@@ -51,4 +51,4 @@ train.to_csv(
 
 test_header = ["Data"]
 test.to_csv(
-    'querying_data.csv', columns=test_header, index=False)
+    'query.csv', columns=test_header, index=False)

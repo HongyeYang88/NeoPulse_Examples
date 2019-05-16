@@ -78,7 +78,7 @@ def write_file(validation_split):
             of.write(l)
         '''
     # Write the querying CSV file.
-    with open('querying_data.csv', 'w') as of:
+    with open('query.csv', 'w') as of:
         of.write('data\n')
         for lid in range(2):
             of.write(train[lid].split(',')[0] + '\n')

@@ -83,7 +83,7 @@ def write_data(validation_split):
         for lid in range(10):
             of.write(csv_list[lid])
 
-    with open('querying_data.csv', 'w') as of:
+    with open('query.csv', 'w') as of:
         of.write('Video\n')
         for lid in range(2):
             of.write(csv_list[lid].split(',')[0] + '\n')

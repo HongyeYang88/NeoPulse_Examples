@@ -27,7 +27,7 @@ def download_data():
             for lid in range(11):
                 wf.write(lines[lid])
 
-        with open('querying_data.csv', 'w') as wf1:
+        with open('query.csv', 'w') as wf1:
             for lid in range(3):
                 wf1.write(lines[lid].split(',')[0] + '\n')
 

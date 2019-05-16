@@ -4,7 +4,6 @@ from pathlib import Path
 from random import shuffle
 
 import requests
-
 from natsort import humansorted
 
 
@@ -76,10 +75,11 @@ def write_file(validation_split):
             of.write(l)
         '''
 
-    with open('querying_data.csv', 'w') as of:
+    with open('query.csv', 'w') as of:
         of.write('Audio\n')
         for lid in range(2):
-            of.write(train[lid].split(',')[0] + '\n')   
+            of.write(train[lid].split(',')[0] + '\n')
+
 
 if __name__ == '__main__':
 

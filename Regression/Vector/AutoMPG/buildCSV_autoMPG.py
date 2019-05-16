@@ -61,4 +61,4 @@ train.to_csv(
 # remove label column for test
 test_header = ["data"]
 test.to_csv(
-    'querying_data.csv', columns=test_header, index=False)
+    'query.csv', columns=test_header, index=False)

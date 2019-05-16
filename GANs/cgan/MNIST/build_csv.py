@@ -84,10 +84,10 @@ def write_test_data():
     with open('training_data.csv', 'w') as wf:
         for lid in range(11):
             wf.write(lines[lid])
-    with open('discriminator_querying_data.csv','w') as wf:
+    with open('discriminator_query.csv','w') as wf:
         for lid in range(3):
             wf.write(lines[lid].split(',')[0] + ',' + lines[lid].split(',')[2])
-    with open('generator_querying_data.csv','w') as wf:
+    with open('generator_query.csv','w') as wf:
         for lid in range(3):
             wf.write(lines[lid].split(',')[1] + ',' + lines[lid].split(',')[2])
 

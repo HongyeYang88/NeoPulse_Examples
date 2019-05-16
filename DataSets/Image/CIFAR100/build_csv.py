@@ -94,7 +94,7 @@ def write_data():
                 of.write(str(Path(file_path)) + ',' + str(labels[ind]) + '\n')
                 count += 1
 
-    with open('querying_data.csv', 'w') as of:
+    with open('query.csv', 'w') as of:
         of.write('Image\n')
         count = 0
         for file_name in data_files:
@@ -113,7 +113,7 @@ def write_test_data():
     with open('training_data.csv', 'w') as wf:
         for lid in range(11):
             wf.write(lines[lid])
-    with open('querying_data.csv','w') as wf:
+    with open('query.csv','w') as wf:
         for lid in range(3):
             wf.write(lines[lid].split(',')[0] + '\n')
 

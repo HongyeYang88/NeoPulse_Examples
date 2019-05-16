@@ -1,1 +1,8 @@
 *.DS_Store
+*training_data.csv
+*query.csv
+*label_names.txt
+*raw_data/
+*genres/
+*images/
+*video/

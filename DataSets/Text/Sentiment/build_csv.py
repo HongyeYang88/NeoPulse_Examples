@@ -52,7 +52,7 @@ def write_test_data():
     with open('training_data.csv', 'w') as wf:
         for lid in range(11):
             wf.write(lines[lid])
-    with open('querying_data.csv','w') as wf:
+    with open('query.csv','w') as wf:
         wf.write('Review\n')
         for lid in range(1,3):
             wf.write(lines[lid][2:])
