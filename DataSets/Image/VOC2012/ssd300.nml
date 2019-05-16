@@ -38,7 +38,7 @@ source:
         shuffle = True,
         shuffle_init = True;
 
-architecture from "VOC2012/pre_trained_model/vgg_16.h5":
+architecture from "pre_trained_model/vgg_16.h5":
     input:
         x ~ image: [shape = [300, 300], channels = 3];
     output:
