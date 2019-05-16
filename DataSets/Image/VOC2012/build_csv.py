@@ -66,6 +66,7 @@ def write_csv_file():
     with open('training_data.csv', 'w') as of:
         of.write('image,label\n')
         filenames = os.listdir(str(xml_path))
+        count = 0
         for index, filename in enumerate(filenames):
             tree = ElementTree.parse(str(xml_path / filename))
             root = tree.getroot()
@@ -88,6 +89,45 @@ def write_csv_file():
             image_path = str((image_folder / image_name).resolve())
             jstring = json.dumps(bounding_boxes)
             of.write(image_path + ",\"" + jstring + "\"\n")
+
+            count += 1
+
+            if count == 10:
+                break
+
+    with open('querying_data.csv', 'w') as of:
+        of.write('image\n')
+        filenames = os.listdir(str(xml_path))
+        count = 0
+        for index, filename in enumerate(filenames):
+            tree = ElementTree.parse(str(xml_path / filename))
+            root = tree.getroot()
+            bounding_boxes = []
+            size_tree = root.find('size')
+            width = float(size_tree.find('width').text)
+            height = float(size_tree.find('height').text)
+            for object_tree in root.findall('object'):
+                for bounding_box in object_tree.iter('bndbox'):
+                    xmin = float(bounding_box.find('xmin').text)/width
+                    ymin = float(bounding_box.find('ymin').text)/height
+                    xmax = float(bounding_box.find('xmax').text)/width
+                    ymax = float(bounding_box.find('ymax').text)/height
+
+                class_name = object_tree.find('name').text
+                class_id = label2id[class_name]
+                bounding_box = [xmin, ymin, xmax, ymax, class_id]
+                bounding_boxes.append(bounding_box)
+            image_name = root.find('filename').text
+            image_path = str((image_folder / image_name).resolve())
+            jstring = json.dumps(bounding_boxes)
+            of.write(image_path + "\n")
+
+            count += 1
+
+            if count == 2:
+                break
+
+
 
 
 if __name__ == '__main__':

@@ -69,11 +69,17 @@ def write_file(validation_split):
     # Write the CSV file.
     with open('training_data.csv', 'w') as of:
         of.write('Audio,Label\n')
-        for l in train:
-            of.write(l)
+        for lid in range(10):
+            of.write(train[lid])
+        '''
         for l in valid:
             of.write(l)
+        '''
 
+    with open('querying_data.csv', 'w') as of:
+        of.write('Audio\n')
+        for lid in range(2):
+            of.write(train[lid].split(',')[0] + '\n')   
 
 if __name__ == '__main__':
 

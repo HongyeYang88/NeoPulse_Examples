@@ -57,17 +57,32 @@ def write_csv_file():
 
     with open('training_data.csv', 'w') as of:
         of.write('Image,Label\n')
+        count = 0
 
         for index, image in enumerate(train_images):
             img_file = 'images/mnist_train_' + str(index) + '.png'
             imwrite(img_file, image)
             of.write(str(Path(img_file)) + ',' + str(train_labels[index]) + '\n')
-
+            count += 1
+            if count == 10:
+                break
+        '''
         for index, image in enumerate(test_images):
             img_file = 'images/mnist_test_' + str(index) + '.png'
             imwrite(img_file, image)
             of.write(str(Path(img_file)) + ',' + str(test_labels[index]) + '\n')
+        '''
+    with open('querying_data.csv', 'w') as of:
+        of.write('Image\n')
+        count = 0
 
+        for index, image in enumerate(train_images):
+            img_file = 'images/mnist_train_' + str(index) + '.png'
+            imwrite(img_file, image)
+            of.write(str(Path(img_file)) + '\n')
+            count += 1
+            if count == 2:
+                break
 
 if __name__ == '__main__':
 

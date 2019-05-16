@@ -80,8 +80,13 @@ def write_data(validation_split):
     csv_list = build_list(data_path, validation_split)
     with open('training_data.csv', 'w') as of:
         of.write('Video,Class\n')
-        for line in csv_list:
-            of.write(line)
+        for lid in range(10):
+            of.write(csv_list[lid])
+
+    with open('querying_data.csv', 'w') as of:
+        of.write('Video\n')
+        for lid in range(2):
+            of.write(csv_list[lid].split(',')[0] + '\n')
 
 
 if __name__ == '__main__':

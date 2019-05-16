@@ -46,10 +46,21 @@ def write_csv():
 
             of.write(f + ',' + '|'.join([str(p) for p in vec]) + '\n')
 
+def write_test_data():
+    lines = []
+    with open('training_data.csv', 'r') as rf:
+        lines = rf.readlines()
+    with open('training_data.csv', 'w') as wf:
+        for lid in range(11):
+            wf.write(lines[lid])
+    with open('querying_data.csv','w') as wf:
+        for lid in range(3):
+            wf.write(lines[lid].split(',')[0] + '\n')
 
 if __name__ == '__main__':
     download_data()
     write_csv()
+    write_test_data()
 
 #
 #

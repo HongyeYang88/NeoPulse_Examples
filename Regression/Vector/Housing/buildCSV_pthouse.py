@@ -47,8 +47,8 @@ print('\nLength of test file:   ' + str(len(test)))
 
 # Export clean CSVs
 train.to_csv(
-    '/home/dcs_2017/Documents/domtest/regression/text/house_train.csv', index=False)
+    'training_data.csv', index=False)
 
 test_header = ["Data"]
 test.to_csv(
-    '/home/dcs_2017/Documents/domtest/regression/text/house_test.csv', columns=test_header, index=False)
+    'querying_data.csv', columns=test_header, index=False)

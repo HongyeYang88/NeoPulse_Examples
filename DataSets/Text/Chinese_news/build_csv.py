@@ -18,6 +18,19 @@ def download_data():
         r = requests.get(URL, stream=True)
         with open('training_data.csv', 'wb') as f_z:
             shutil.copyfileobj(r.raw, f_z)
+        lines = None
+
+        with open('training_data.csv', 'r') as rf:
+            lines = rf.readlines()
+            
+        with open('training_data.csv', 'w') as wf:
+            for lid in range(11):
+                wf.write(lines[lid])
+
+        with open('querying_data.csv', 'w') as wf1:
+            for lid in range(3):
+                wf1.write(lines[lid].split(',')[0] + '\n')
+
 
 
 

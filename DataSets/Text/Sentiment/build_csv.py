@@ -45,8 +45,23 @@ def load_query(direc, save_as):
     pd_form = {"Review": data.data}
     pd.DataFrame(pd_form).loc[1:5, :].to_csv(save_as, index=False)
 
+def write_test_data():
+    lines = []
+    with open('training_data.csv', 'r') as rf:
+        lines = rf.readlines()
+    with open('training_data.csv', 'w') as wf:
+        for lid in range(11):
+            wf.write(lines[lid])
+    with open('querying_data.csv','w') as wf:
+        wf.write('Review\n')
+        for lid in range(1,3):
+            wf.write(lines[lid][2:])
+
+
 if __name__ == "__main__":
 
     download_data()
 
     write_data('aclImdb', 'training_data.csv')
+
+    write_test_data()

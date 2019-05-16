@@ -77,6 +77,19 @@ def write_csv_file():
             noise = noise[:-1] 
             of.write(str(Path(img_file).resolve()) + ',' + noise + '\n')
 
+def write_test_data():
+    lines = []
+    with open('training_data.csv', 'r') as rf:
+        lines = rf.readlines()
+    with open('training_data.csv', 'w') as wf:
+        for lid in range(11):
+            wf.write(lines[lid])
+    with open('discriminator_querying_data.csv','w') as wf:
+        for lid in range(3):
+            wf.write(lines[lid].split(',')[0] + '\n')
+    with open('generator_querying_data.csv','w') as wf:
+        for lid in range(3):
+            wf.write(lines[lid].split(',')[1] )
 
 if __name__ == '__main__':
 
@@ -85,3 +98,5 @@ if __name__ == '__main__':
 
     # Write the data to PNG files, and create a csv file for NeoPulse AI Studio
     write_csv_file()
+
+    write_test_data()

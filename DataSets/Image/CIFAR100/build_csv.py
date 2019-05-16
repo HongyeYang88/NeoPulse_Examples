@@ -94,6 +94,28 @@ def write_data():
                 of.write(str(Path(file_path)) + ',' + str(labels[ind]) + '\n')
                 count += 1
 
+    with open('querying_data.csv', 'w') as of:
+        of.write('Image\n')
+        count = 0
+        for file_name in data_files:
+            image_list, labels = load_data(file_name)
+            for ind, image in enumerate(image_list):
+                file_path = image_path + str(count) + '.png'
+                imwrite(file_path, image)
+                of.write(str(Path(file_path)) + '\n')
+                count += 1
+
+
+def write_test_data():
+    lines = []
+    with open('training_data.csv', 'r') as rf:
+        lines = rf.readlines()
+    with open('training_data.csv', 'w') as wf:
+        for lid in range(11):
+            wf.write(lines[lid])
+    with open('querying_data.csv','w') as wf:
+        for lid in range(3):
+            wf.write(lines[lid].split(',')[0] + '\n')
 
 if __name__ == '__main__':
 
@@ -101,3 +123,5 @@ if __name__ == '__main__':
     download_data()
     # Write the data to PNG files, and create a csv file for NeoPulse AI Studio
     write_data()
+
+    write_test_data()

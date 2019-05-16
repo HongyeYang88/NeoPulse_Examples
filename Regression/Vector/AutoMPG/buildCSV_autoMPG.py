@@ -57,8 +57,8 @@ print('\nLength of test file:   ' + str(len(test)))
 
 # Export clean CSVs
 train.to_csv(
-    '/home/dcs_2017/Documents/domtest/regression/vector/auto_train.csv', index=False)
+    'training_data.csv', index=False)
 # remove label column for test
 test_header = ["data"]
 test.to_csv(
-    '/home/dcs_2017/Documents/domtest/regression/vector/auto_test.csv', columns=test_header, index=False)
+    'querying_data.csv', columns=test_header, index=False)

@@ -71,16 +71,17 @@ def write_file(validation_split):
     # Write the training CSV file.
     with open('training_data.csv', 'w') as of:
         of.write('data,label\n')
-        for l in train:
-            of.write(l)
+        for lid in range(10):
+            of.write(train[lid])
+        '''
         for l in valid:
             of.write(l)
-
+        '''
     # Write the querying CSV file.
     with open('querying_data.csv', 'w') as of:
         of.write('data\n')
-        for l in valid:
-            of.write(l.split(',')[0] + '\n')
+        for lid in range(2):
+            of.write(train[lid].split(',')[0] + '\n')
 
 
 if __name__ == '__main__':
