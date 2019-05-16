@@ -13,7 +13,7 @@ source:
         batch_size=10,
         shuffle=True,
         shuffle_init=True,
-        validation_split=0.2;
+        validation_split = 0.2;
 
 train:
     compile:

@@ -13,7 +13,7 @@ source:
             -> flat: [2]
             -> FlatDataGenerator: [] ;
     params:
-        validation_split = 0.5,
+        validation_split = 0.2,
         batch_size = 5;
 
 architecture:
