@@ -10,7 +10,7 @@ source:
             -> flat: [100]
             -> FlatDataGenerator: [];
     params:
-        batch_size = 256,
+        batch_size = 5,
         shuffle = True,
         shuffle_init = True;
 

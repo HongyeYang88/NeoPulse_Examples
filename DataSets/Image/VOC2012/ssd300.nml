@@ -231,7 +231,7 @@ source:
           -> bbox: []
           -> BBoxDataGenerator:[num_classes = 20];
     params:
-        batch_size = 16,
+        batch_size = 5,
         shuffle = True,
         shuffle_init = True;
 
