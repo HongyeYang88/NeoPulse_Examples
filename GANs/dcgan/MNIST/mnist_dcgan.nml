@@ -1,7 +1,7 @@
 oracle("mode") = "DCGAN"
 
 source:
-    bind = "/DM-Dash/NeoPulse_Examples/GANs/dcgan/MNIST/training_data.csv";
+    bind = "training_data.csv";
     input:
         x ~ from "image"
             -> image: [shape = [28, 28], channels = 1]
@@ -13,9 +13,6 @@ source:
         batch_size = 5,
         shuffle = True,
         shuffle_init = True;
-
-
-
 
 architecture name:generator:
     input:
@@ -71,4 +68,3 @@ train:
         loss = 'binary_crossentropy';
     run:
         epochs = 2;
-        

@@ -1,3 +1,4 @@
+oracle("generated") = 1
 oracle("mode") = "classification"
 oracle("complexity") =  0.1
 

@@ -22,7 +22,7 @@ $ neopulse train -p <project_name> -f /DM-Dash/NeoPulse_Examples/Classification/
 ```
 The paths in the NML scripts in this directory assume that you have cloned this repository into the /DM-Dash directory of your machine. If you have put it somewhere else, you'll need to move the NML files into a location under the /DM-Dash directory, and change the path in the line:
 ```bash
-bind = "/DM-Dash/NeoPulse_Examples/Classification/Image/CIFAR10/training_data.csv" ;
+bind = "training_data.csv" ;
 ```
 
 # Tutorial Files

@@ -2,18 +2,18 @@
 These sample .nml files are for training a Single Shot MultiBox Detector model using image data in [NeoPulse™ AI Studio](https://aws.amazon.com/marketplace/pp/B074NDG36S/ref=vdr_rf).
 
 # Model Structure
-The SSD model structure uses VGG-16 as base model. As shown in figure 1, it takes conv4_3, fc7, conv6_2, conv7_2, conv8_2, and conv9_2 feature layers to predict both location and class confidences. 
+The SSD model structure uses VGG-16 as base model. As shown in figure 1, it takes conv4_3, fc7, conv6_2, conv7_2, conv8_2, and conv9_2 feature layers to predict both location and class confidences.
 
 
 ![Fig. 1](../../../assets/Picture1.png "Fig. 1: SSD model with VGG-16 as base. Feature Layer conv4_3, fc7, conv6_2, conv7_2, conv8_2 and conv9_2 are used to predict location and confidence.")
 **Fig.1 SSD model with VGG-16 as base. Feature Layer conv4_3, fc7, conv6_2, conv7_2, conv8_2 and conv9_2 are used to predict location and confidence.**
 
-In predicting process, each feature layer is feed into RPN(Regional Proposal Network) to predict class confidence and location coordinates. 
+In predicting process, each feature layer is feed into RPN(Regional Proposal Network) to predict class confidence and location coordinates.
 
 ![Fig. 2](../../../assets/Picture2.png "Fig. 2: RPN structure")
 **Fig. 2: RPN structure**
 
- A set of Anchor Boxes are predefined for each feature layer. Each point in feature map is defined as anchor point. 4 or 6 different default boxes(different ratios and scales) are defined around each anchor point. Classes and location coordinates are predicted based on each anchor box. 
+ A set of Anchor Boxes are predefined for each feature layer. Each point in feature map is defined as anchor point. 4 or 6 different default boxes(different ratios and scales) are defined around each anchor point. Classes and location coordinates are predicted based on each anchor box.
 
 ![Fig. 3](../../../assets/Picture3.png "Fig. 3: 4 different default boxes are defind around one anchor point")
 
@@ -22,13 +22,13 @@ In predicting process, each feature layer is feed into RPN(Regional Proposal Net
 For example, conv6-2 RPN is defined as below in .nml:
 
 ```
-    conv6_2 
+    conv6_2
       -> Conv2D:[126, [3,3], padding = "same", kernel_initializer = "he_normal", kernel_regularizer = l2:[0.0005], name = "conv6_2_mbox_conf"]
       -> Reshape: [[-1, 21]]
       -> classes_conv6_2
 
 
-    conv6_2 
+    conv6_2
       -> Conv2D:[24, [3,3], padding = "same", kernel_initializer = "he_normal", kernel_regularizer = l2:[0.0005], name = "conv6_2_mbox_loc"]
       -> boxes_conv6_2
 
@@ -47,17 +47,17 @@ For example, conv6-2 RPN is defined as below in .nml:
 In details, Confidence RPN is implemented by 3 * 3 convolution layer. 6 default boxes are defined around each anchor point, and each box is classified into 21 classes (20 onject classes + background), so convolutional layer has 6 * 21 filters. After convolutional layer, prediction results are reshaped as (21,).
 
 ```
-    conv6_2 
+    conv6_2
       -> Conv2D:[126, [3,3], padding = "same", kernel_initializer = "he_normal", kernel_regularizer = l2:[0.0005], name = "conv6_2_mbox_conf"]
       -> Reshape: [[-1, 21]]
       -> classes_conv6_2
 
-``` 
+```
 
 Box RPN is also implemented by 3 * 3 convolution layer, which has 24 filters. (24 = 4 * 6, 4 location coordinates and 6 default boxes each anchor point). Then, box predictions are reshaped as (4,).
 
 ```
-    conv6_2 
+    conv6_2
       -> Conv2D:[24, [3,3], padding = "same", kernel_initializer = "he_normal", kernel_regularizer = l2:[0.0005], name = "conv6_2_mbox_loc"]
       -> boxes_conv6_2
 
@@ -67,7 +67,7 @@ Box RPN is also implemented by 3 * 3 convolution layer, which has 24 filters. (2
 
 ```
 
-Anchor boxes labels for training is created by Layer "AnchorBoxes", which uses intermediate results between box convolution and reshape layer as input. 
+Anchor boxes labels for training is created by Layer "AnchorBoxes", which uses intermediate results between box convolution and reshape layer as input.
 
 ```
     boxes_conv6_2
@@ -80,8 +80,8 @@ In the end, all class and box prediction results across all feature layers need 
 
 ```
 
-    [classes_conv4_3, classes_fc7, classes_conv6_2, classes_conv7_2, classes_conv8_2, classes_conv9_2] 
-      -> Concatenate:[axis = 1] 
+    [classes_conv4_3, classes_fc7, classes_conv6_2, classes_conv7_2, classes_conv8_2, classes_conv9_2]
+      -> Concatenate:[axis = 1]
       -> classes_concat
 
     [boxes_conv4_3, boxes_fc7, boxes_conv6_2, boxes_conv7_2, boxes_conv8_2, boxes_conv9_2]
@@ -120,7 +120,7 @@ $ neopulse train -p <project_name> -f /DM-Dash/NeoPulse_Examples/ImageDetection/
 ```
 The paths in the NML scripts in this directory assume that you have cloned this repository into the /DM-Dash directory of your machine. If you have put it somewhere else, you'll need to move the NML files into a location under the /DM-Dash directory, and change the path in the line:
 ```bash
-bind = "/DM-Dash/NeoPulse_Examples/ImageDetection/ssd/VOC2012/training_data.csv" ;
+bind = "training_data.csv" ;
 ```
 
 # Tutorial Files

@@ -1,4 +1,5 @@
 oracle("mode") = "spectral_opt"
+oracle("generated") = 1
 
 source:
     bind = "training_data.csv" ;

@@ -1,4 +1,4 @@
-oracle("generated") = 4
+oracle("generated") = 2
 oracle("complexity") =  0.1
 oracle("regularization") = 0.99
 

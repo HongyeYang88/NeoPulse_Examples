@@ -1,9 +1,10 @@
 oracle("mode") = "BEGAN"
+oracle("generated") = 1
 
 gamma = 0.5
 
 source:
-    bind = "/DM-Dash/NeoPulse_Examples/GANs/began/MNIST/training_data.csv";
+    bind = "training_data.csv";
     input:
         x ~ from "image"
             -> image: [shape = [28, 28], channels = 1]
@@ -39,4 +40,3 @@ train :
     run:
         epochs = 2;
     dashboard: ;
-        

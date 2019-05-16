@@ -1,7 +1,8 @@
 oracle("mode") = "GAN"
+oracle("generated") = 1
 
 source:
-    bind = "/DM-Dash/NeoPulse_Examples/GANs/gan/MNIST/training_data.csv";
+    bind = "training_data.csv";
     input:
         x ~ from "image"
             -> image: [shape = [28, 28], channels = 1]
