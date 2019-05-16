@@ -14,7 +14,7 @@ architecture:
     output: y ;
 
     x -> UnsupervisedFlatten:[]
-    -> Pca:[n_components=8]
+    -> Pca:[n_components=2]
     -> y ;
 
 train:
