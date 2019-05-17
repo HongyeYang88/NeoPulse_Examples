@@ -17,7 +17,7 @@ source:
         batch_size = 5;
 
 architecture:
-    input:  x ~ text: [100] ;
+    input:  x ~ text: [200] ;
     output: y ~ flat: [2] ;
 
     x -> Embedding: [20000, 128]
