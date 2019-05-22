@@ -7,8 +7,10 @@
 *genres/
 *images/
 *videos/
+*DrivImages/
 
 # For SageMaker
 *train.nml
-model/
-output/
+*model/
+*output/
+*logs/
