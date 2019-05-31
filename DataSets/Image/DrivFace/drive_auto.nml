@@ -4,7 +4,7 @@ source:
   bind = "training_data.csv" ;
   input:
     x ~ from "Image"
-      -> image: [shape=[640, 480], channels=3]
+      -> image: [shape=[320, 240], channels=3]
       -> ImageDataGenerator: [rescale= 0.003921568627451] ;
   output:
     y ~ from "Vector"
@@ -12,10 +12,10 @@ source:
       -> FlatDataGenerator: [] ;
   params:
     validation_split = 0.2,
-    batch_size = 5 ;
+    batch_size = 2 ;
 
 architecture:
-  input:  x ~ image: [shape=[640, 480], channels=3] ;
+  input:  x ~ image: [shape=[320, 240], channels=3] ;
   output: y ~ flat: [4] ;
 
   x -> auto -> y ;
