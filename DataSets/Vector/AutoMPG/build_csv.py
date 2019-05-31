@@ -2,63 +2,67 @@ import os
 import numpy as np
 import itertools
 import pandas as pd
+from random import shuffle
+from pathlib import Path
+import requests
+import shutil
 
 
-def train_test_split(df, train_percent=.8, test_percent=.2, seed=None):
-    np.random.seed(seed)
-    perm = np.random.permutation(df.index)
-    m = len(df.index)
-    train_end = int(train_percent * m)
-    test_end = int(test_percent * m) + train_end
-    train = df.ix[perm[:train_end]]
-    test = df.ix[perm[train_end:test_end]]
-    return train, test
+def download_data():
+    '''
+    Check if raw data is present. If not, download data from the official site.
+    '''
+
+    Path('raw_data').mkdir(parents=True, exist_ok=True)
+
+    URL = 'https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/'
+    f = 'auto-mpg.data'
+
+    if not Path('raw_data/' + f).is_file():
+        r = requests.get(URL + f, stream=True)
+        with open('raw_data/' + f, 'wb') as f_z:
+            shutil.copyfileobj(r.raw, f_z)
+
+def write_csv_file(validation_split=0.1):
+
+    csv_lines = []
+
+    with open('raw_data/auto-mpg.data', 'r') as rf:
+        raw_lines = rf.readlines()
+
+        for line in raw_lines:
+            valid = True
+            line = line.replace("\t"," ")
+            elems = [e for e in line.split(' ') if e not in [" ", "","\t"] and e.replace(".","",1).isdigit()]
+
+            if len(elems) == 8:
+
+                c_data = '|'.join(elems[1:8])
+                c_mpg = elems[0]
+                csv_lines.append("{},{}".format(c_data, c_mpg))
+
+    shuffle(csv_lines)
+
+    split_index = int(validation_split * len(csv_lines))
+    training_lines = csv_lines[split_index:]
+    querying_lines = csv_lines[:split_index]
 
 
-# Import data
-data = pd.read_csv(
-    '/home/dcs_2017/Documents/domtest/regression/vector/auto_mpg.csv', quotechar='"')
-# Drop nominal variable
-data.drop(['car_name'], axis=1, inplace=True)
+    with open('training_data.csv', 'w') as wf:
+        wf.write("data,mpg\n")
+        for line in training_lines:
+            wf.write(line + '\n')
 
-# Remove unwanted characters
-data = data.apply(pd.to_numeric, args=('coerce',))
-data = data.fillna(data.mean())
-
-
-## Normalize Data ##
-data_to_norm = ['cylinders', 'displacement', 'horsepower', 'weight', 'acceleration', 'model_year',
-                'origin']
-
-data[data_to_norm] = (data[data_to_norm].apply(
-    lambda x: (x - x.mean()) / (x.max() - x.min())))
-
-# Perform train/test split
-train, test = train_test_split(data)
-
-# Remove label column from test (query) file
-test.drop(['mpg'], axis=1, inplace=True)
+    with open('query.csv', 'w') as wf:
+        wf.write("data\n")
+        for line in querying_lines:
+            wf.write(line.split(',')[0] + '\n')
 
 
-# Concatenate columns into flat vector
-train_to_vector = train.ix[:, ['cylinders', 'displacement', 'horsepower', 'weight', 'acceleration', 'model_year',
-                               'origin']]
-train_to_vector['data'] = train_to_vector.apply(lambda x: '|'.join(
-    x.dropna().astype(str).values), axis=1)
-test['data'] = test.apply(lambda x: '|'.join(
-    x.dropna().astype(str).values), axis=1)
+if __name__ == '__main__':
 
-train = pd.concat([train_to_vector['data'], train['mpg']], axis=1)
+    # Download data if necessary
+    download_data()
 
-## Check file length ##
-print('\nLength of train file:  ' + str(len(train)))
-print('\nLength of test file:   ' + str(len(test)))
-
-
-# Export clean CSVs
-train.to_csv(
-    'training_data.csv', index=False)
-# remove label column for test
-test_header = ["data"]
-test.to_csv(
-    'query.csv', columns=test_header, index=False)
+    # Write files with 20% validation split
+    write_csv_file(0.2)
