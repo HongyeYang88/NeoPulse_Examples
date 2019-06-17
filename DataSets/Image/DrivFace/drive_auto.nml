@@ -1,4 +1,5 @@
 oracle("mode") = "regression"
+oracle("generated") = 2
 
 source:
   bind = "training_data.csv" ;
